@@ -1,15 +1,8 @@
-import os
 import numpy as np
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
 from monai.networks.nets import DenseNet121
-from monai.metrics import ROCAUCMetric
-from monai.transforms import (
-    Compose, LoadImaged, EnsureChannelFirstd, ScaleIntensityd, RandFlipd,
-    RandRotate90d, RandSpatialCropd, EnsureTyped, ToTensord
-)
-from monai.data import Dataset, CacheDataset, PersistentDataset
 from sklearn.metrics import (
     matthews_corrcoef, balanced_accuracy_score, f1_score, roc_auc_score
 )
@@ -18,6 +11,9 @@ from monai.transforms import PadListDataCollate
 from dataset import BurdenkoLumiereDataset
 from utils import track_training_progress, seed_everything
 
+#-------------------------------
+# Initialize Project
+#-------------------------------
 torch.cuda.empty_cache()
 seed_everything(28)
 
