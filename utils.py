@@ -4,7 +4,7 @@ import os
 import random
 import torch
 
-def seed_everything(seed: int):
+def seed_everything(seed: int) -> None:
     seed = 42
     random.seed(seed)
     np.random.seed(seed)
@@ -15,12 +15,12 @@ def seed_everything(seed: int):
     torch.backends.cudnn.benchmark = False
     os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":16:8"
 
-def track_training_progress(train_loss_list, val_loss_list,
-                            train_auc_list, val_auc_list,
-                            train_bacc_list, val_bacc_list,
-                            train_mcc_list, val_mcc_list,
-                            train_f1_list, val_f1_list,
-                            lr_list, result_dir: str = "./results/"):
+def track_training_progress(train_loss_list: list, val_loss_list: list,
+                            train_auc_list: list, val_auc_list: list,
+                            train_bacc_list: list, val_bacc_list: list,
+                            train_mcc_list: list, val_mcc_list: list,
+                            train_f1_list: list, val_f1_list: list,
+                            lr_list: list, result_dir: str = "./results/") -> None:
 
     plt.figure(figsize=(25, 25))
     plt.subplot(6, 1, 1)
