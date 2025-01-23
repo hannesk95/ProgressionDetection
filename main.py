@@ -126,7 +126,7 @@ for epoch in range(num_epochs):
     all_preds = np.array(all_preds)
     metrics = calculate_metrics(all_labels, all_preds)
 
-    val_loss_list.append(train_loss)
+    val_loss_list.append(val_loss)
     val_bacc_list.append(metrics["Balanced Accuracy"])
     val_auc_list.append(metrics["AUROC"])
     val_mcc_list.append(metrics["MCC"])
