@@ -3,22 +3,15 @@ import torch
 import numpy as np
 import torchio as tio
 import pandas as pd
-import nibabel as ni
-import SimpleITK as sitk
 import monai
-
 from glob import glob
-
 from torch.utils.data import Dataset
-
-from sklearn.utils.class_weight import compute_class_weight
-from sklearn.preprocessing import OneHotEncoder
 from monai.transforms import Compose
 from pathlib import Path
 
 
 class BurdenkoLumiereDataset(Dataset):
-    def __init__(self, split):
+    def __init__(self, split: str):
         self.split = split
 
         # MONAI Augmentations
@@ -100,7 +93,7 @@ class BurdenkoLumiereDataset(Dataset):
 
         return image, label
     
-    def crop_with_margin(self, img_path, seg_path, margin=0.2):
+    def crop_with_margin(self, img_path: str, seg_path: str, margin: float = 0.2) -> torch.Tensor:
 
         subject = tio.Subject(img = tio.ScalarImage(img_path),
                               seg = tio.LabelMap(seg_path))
