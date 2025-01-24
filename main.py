@@ -10,6 +10,7 @@ from tqdm import tqdm
 from monai.transforms import PadListDataCollate
 from dataset import BurdenkoLumiereDataset
 from utils import track_training_progress, seed_everything
+from model import ConvNeXt3D
 
 #-------------------------------
 # Initialize Project
@@ -24,7 +25,7 @@ train_dataset = BurdenkoLumiereDataset(split="train")
 val_dataset = BurdenkoLumiereDataset(split="val")
 test_dataset = BurdenkoLumiereDataset(split="test")
 
-train_loader = DataLoader(train_dataset, batch_size=8, shuffle=True, num_workers=16, collate_fn=PadListDataCollate())
+train_loader = DataLoader(train_dataset, batch_size=8, shuffle=True, num_workers=4, collate_fn=PadListDataCollate())
 val_loader = DataLoader(val_dataset, batch_size=1, shuffle=False, num_workers=4, collate_fn=PadListDataCollate())
 test_loader = DataLoader(test_dataset, batch_size=1, shuffle=False, num_workers=4, collate_fn=PadListDataCollate())
 
@@ -32,7 +33,8 @@ test_loader = DataLoader(test_dataset, batch_size=1, shuffle=False, num_workers=
 # Model Definition
 # -------------------------------
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model = DenseNet121(spatial_dims=3, in_channels=8, out_channels=1).to(device)
+# model = DenseNet121(spatial_dims=3, in_channels=8, out_channels=1).to(device)
+model = ConvNeXt3D(in_chans=8, num_classes=1).to(device)
 loss_fn = nn.BCEWithLogitsLoss()
 optimizer = torch.optim.AdamW(model.parameters(), lr=0.001)
 
